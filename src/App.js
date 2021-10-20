@@ -1,35 +1,30 @@
-import { Route, Switch, Redirect } from "react-router-dom";
-import Products from "./Pages/Products";
-import Welcome from "./Pages/Welcome";
-import ProductDetail from "./Pages/ProductDetail";
-import MainHeader from "./components/MainHeader";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Header from "./components/Layout/Header";
+import Meals from './components/Meals/Meals.js';
+import Cart from './components/Cart/Cart';
+import CartProvider from "./store/CartProvider";
 
 function App() {
+  const [cartIsShown, setCartIsShown] = useState(false);
+
+  const showCartHandler = () => {
+    setCartIsShown(true);
+  };
+
+  const hideCartHandler = () => {
+    setCartIsShown(false);
+  };
+
   return (
-    <div>
-      <MainHeader />
+    <CartProvider>
+      {cartIsShown && <Cart onClose={hideCartHandler} />}
+      <Header onShowCart={showCartHandler}/>
       <main>
-        <Switch>
-          <Route path="/" exact>
-            <Redirect to="/welcome" />
-          </Route>
-          <Route path="/welcome">
-            <Welcome />
-          </Route>
-          <Route path="/products" exact>
-            <Products />
-          </Route>
-          <Route path="/products/:productId">
-            <ProductDetail />
-          </Route>
-        </Switch>
+        <Meals />
       </main>
-    </div>
+    </CartProvider>
   );
 }
 
 export default App;
-
-// our-domain.com/ => component A
-// our-domain.com/products => component B
-// our-domain.com/product-detail/a-book
