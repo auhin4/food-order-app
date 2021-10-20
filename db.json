@@ -23,6 +23,60 @@
       "name": "Green Bowl",
       "description": "Healthy...and green...",
       "price": 18.99
+    },
+    {
+      "id": "m5",
+      "name": "Eggs Benedict",
+      "description": "Poached egg on an english muffin with hollandaise sauce.",
+      "price": 11.99
+    },
+    {
+      "id": "m6",
+      "name": "Potato",
+      "description": "Irish delicacy.",
+      "price": 0.49
+    }
+  ],
+  "orders": [
+    {
+      "id": "9f6ec44a-3282-4d16-ac53-b2af6a0f39e2",
+      "user": {
+        "name": "Laura",
+        "street": "123 Moss St",
+        "postalCode": "34432",
+        "city": "TP"
+      },
+      "orderedItems": [
+        {
+          "id": "m1",
+          "name": "Sushi",
+          "amount": 3,
+          "price": 22.99
+        }
+      ]
+    },
+    {
+      "id": "a53c5fc0-def1-4127-b0d0-80e178b12a1f",
+      "user": {
+        "name": "James",
+        "street": "123 Oak Rd",
+        "postalCode": "34582",
+        "city": "Twin Peaks WA"
+      },
+      "orderedItems": [
+        {
+          "id": "m1",
+          "name": "Sushi",
+          "amount": 2,
+          "price": 22.99
+        },
+        {
+          "id": "m2",
+          "name": "Schnitzel",
+          "amount": 3,
+          "price": 16.5
+        }
+      ]
     }
   ]
 }

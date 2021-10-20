@@ -1,4 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {addOrderRedux} from "../../actions/orders.actions";
 
 import Modal from "../UI/Modal";
 import classes from "./Cart.module.css";
@@ -11,6 +13,10 @@ const Cart = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
   const cartCtx = useContext(CartContext);
+
+  const orders = useSelector((state) => state.orders);
+
+  const dispatch = useDispatch();
 
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
   const hasItems = cartCtx.items.length > 0;
@@ -26,19 +32,27 @@ const Cart = (props) => {
   const orderHandler = () => {
     setIsCheckingOut(true);
   };
-
-  const submitOrderHandler = async (userData) => {
+ 
+  const submitOrderHandler = (userData) => {
     setIsSubmitting(true);
-    await fetch(
-      "https://food-order-app-db-28154-default-rtdb.firebaseio.com/orders.json",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          user: userData,
-          orderedItems: cartCtx.items,
-        }),
-      }
-    );
+    dispatch(addOrderRedux({
+      name: userData.name,
+      street: userData.street,
+      postalCode: userData.postalCode,
+      city: userData.city,
+      items: cartCtx.items
+    }));
+    // await fetch(
+    //   "https://food-order-app-db-28154-default-rtdb.firebaseio.com/orders.json",
+      
+    //   {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //       user: userData,
+    //       orderedItems: cartCtx.items,
+    //     }),
+    //   }
+    // );
     setIsSubmitting(false);
     setDidSubmit(true);
     cartCtx.clearCart();
