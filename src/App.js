@@ -5,7 +5,8 @@ import Meals from "./components/Meals/Meals.js";
 import Cart from "./components/Cart/Cart";
 import CartProvider from "./store/CartProvider";
 import Orders from "./components/Orders/Orders";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
+import OrderDetail from "./components/Orders/OrderDetail";
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
@@ -23,12 +24,17 @@ function App() {
       {cartIsShown && <Cart onClose={hideCartHandler} />}
       <Header onShowCart={showCartHandler} />
       <main>
+        <Switch>
         <Route path="/" exact>
           <Meals />
         </Route>
-        <Route path="/orders">
+        <Route path="/orders" exact>
           <Orders />
         </Route>
+        <Route path="/orders/:id" exact>
+          <OrderDetail />
+        </Route>
+        </Switch>
       </main>
     </CartProvider>
   );
