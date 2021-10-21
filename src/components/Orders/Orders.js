@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import OrderItem from "./OrderItem/OrderItem";
 import { getOrdersRedux } from "../../actions/orders.actions";
+import OrdersSummary from "./OrdersSummary";
 
 const Orders = () => {
   const orders = useSelector((state) => state.orders);
@@ -51,6 +52,7 @@ const Orders = () => {
 
   return (
     <Fragment>
+        <OrdersSummary />
       <section className={classes.orders}>
         <Card>
           <ul>{ordersList}</ul>
