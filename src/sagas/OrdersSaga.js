@@ -1,7 +1,15 @@
-import { call, takeLatest } from "redux-saga/effects";
-import ordersTypes from "../actions/orders.actions";
+import { call, put, take, takeLatest } from "redux-saga/effects";
+import ordersTypes, { populateOrders } from "../actions/orders.actions";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+
+export function* getOrders() {
+  yield take(ordersTypes.GET_ORDERS);
+  console.log("I need to get the orders now.");
+  const {data} = yield call(axios, "http://localhost:3001/orders");
+  console.log(data);
+  yield put(populateOrders(data));
+}
 
 export function* addOrderSaga() {
   yield takeLatest(ordersTypes.ADD_ORDER, addOrderToDb);
