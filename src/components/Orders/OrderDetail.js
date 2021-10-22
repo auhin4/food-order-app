@@ -10,7 +10,7 @@ import { getOrderByIdRedux } from "../../actions/orders.actions";
 
 const OrderDetail = () => {
   const params = useParams();
-  const order = useSelector((state) => state.orders);
+  const orders = useSelector((state) => state.orders);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState();
 
@@ -27,8 +27,22 @@ const OrderDetail = () => {
   }, [dispatch]);
 
   useEffect(() => {
-      <OrderItem user={order.user} id={order.id} orderedItems={order.orderedItems} />
-  }, [order]);
+    try {
+      orders.map((order) => (
+        <OrderItem
+          user={order.user}
+          id={order.id}
+          orderedItems={order.orderedItems}
+        />
+      ));
+    } catch (error) {
+      <OrderItem
+        user={orders.user}
+        id={orders.id}
+        orderedItems={orders.orderedItems}
+      />;
+    }
+  }, [orders]);
 
   if (isLoading) {
     return (
@@ -45,14 +59,31 @@ const OrderDetail = () => {
       </section>
     );
   }
-  
-  const ordersList = 
-    <OrderItem user={order.user} id={order.id} orderedItems={order.orderedItems} />;
+
+  const ordersList = () => {
+    try {
+      return orders.map((order) => (
+        <OrderItem
+          user={order.user}
+          id={order.id}
+          orderedItems={order.orderedItems}
+        />
+      ));
+    } catch (error) {
+      return (
+        <OrderItem
+          user={orders.user}
+          id={orders.id}
+          orderedItems={orders.orderedItems}
+        />
+      );
+    }
+  };
 
   return (
     <Fragment>
       <section className={classes.orders}>
-        <Card>{ordersList}</Card>
+        <Card>{ordersList()}</Card>
       </section>
     </Fragment>
   );
