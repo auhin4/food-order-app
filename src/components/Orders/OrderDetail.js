@@ -10,21 +10,11 @@ import { getOrderByIdRedux } from "../../actions/orders.actions";
 
 const OrderDetail = () => {
   const params = useParams();
-  const orders = useSelector((state) => state.orders);
+  const orders = useSelector((state) => state.order);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState();
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    try {
-      dispatch(getOrderByIdRedux({ id: params.id }));
-    } catch (error) {
-      setIsLoading(false);
-      setHttpError(error.message);
-    }
-    setIsLoading(false);
-  }, [dispatch]);
 
   useEffect(() => {
     try {
@@ -43,6 +33,16 @@ const OrderDetail = () => {
       />;
     }
   }, [orders]);
+
+  useEffect(() => {
+    try {
+      dispatch(getOrderByIdRedux({ id: params.id }));
+    } catch (error) {
+      setIsLoading(false);
+      setHttpError(error.message);
+    }
+    setIsLoading(false);
+  }, [dispatch]);
 
   if (isLoading) {
     return (

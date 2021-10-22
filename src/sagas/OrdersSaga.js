@@ -1,5 +1,5 @@
 import { call, put, take, takeLatest } from "redux-saga/effects";
-import ordersTypes, { populateOrders } from "../actions/orders.actions";
+import ordersTypes, { populateOrderById, populateOrders } from "../actions/orders.actions";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
@@ -23,7 +23,7 @@ function* getOrderById({id}){
   console.log('Trying to retrieve specific order by id.');
   const{data} = yield call(axios, "http://localhost:3001/orders/" + id);
   console.log(data);
-  yield put(populateOrders(data));
+  yield put(populateOrderById(data));
 }
 
 export function* addOrderSaga() {

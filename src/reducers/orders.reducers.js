@@ -5,6 +5,8 @@ const reducer = (state = initialOrders, action) => {
   switch (action.type) {
     case ordersTypes.POPULATE_ORDERS:
       return action.payload;
+    case ordersTypes.POPULATE_ORDER_BY_ID:
+      return action.payload;
     case ordersTypes.ADD_ORDER:
       newOrders = state.concat({ ...action.payload });
       return newOrders;

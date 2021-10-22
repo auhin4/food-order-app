@@ -2,7 +2,8 @@ const types = {
   ADD_ORDER: "ADD_ORDER",
   GET_ORDERS: "GET_ORDERS",
   GET_ORDER_BY_ID: "GET_ORDER_BY_ID",
-  POPULATE_ORDERS: "POPULATE_ORDERS"
+  POPULATE_ORDERS: "POPULATE_ORDERS",
+  POPULATE_ORDER_BY_ID: "POPULATE_ORDER_BY_ID"
 };
 
 export default types;
@@ -22,3 +23,7 @@ export const getOrderByIdRedux = (payload) => {
 export const populateOrders = (orders) => {
     return { type: types.POPULATE_ORDERS, payload: orders };
   };
+
+  export const populateOrderById = (order) => {
+    return {type: types.POPULATE_ORDER_BY_ID, payload: [order] }
+  }

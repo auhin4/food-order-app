@@ -13,7 +13,8 @@ const configureStore = () => {
   const store = createStore(
     combineReducers({
       entries: entriesReducer,
-      orders: ordersReducer
+      orders: ordersReducer,
+      order: ordersReducer
     }),
     composeWithDevTools(applyMiddleware(...middlewares))
   );

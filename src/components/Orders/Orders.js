@@ -8,17 +8,11 @@ import { getOrdersRedux } from "../../actions/orders.actions";
 import OrdersSummary from "./OrdersSummary";
 
 const Orders = () => {
-  const orders = useSelector((state) => state.orders);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState();
-
-  useEffect(() => {
-    orders.map((order) => (
-      <OrderItem user={order.user} id={order.id} orderedItems={order.orderedItems} />
-    ));
-  }, [orders]);
-
   const dispatch = useDispatch();
+  const orders = useSelector((state) => state.orders);
+  let ordersList;
 
   useEffect(() => {
     try {
@@ -29,6 +23,12 @@ const Orders = () => {
     }
     setIsLoading(false);
   }, [dispatch]);
+
+  useEffect(() => {
+    orders.map((order) => (
+      <OrderItem user={order.user} id={order.id} orderedItems={order.orderedItems} />
+    ));
+  }, [orders]);
 
   if (isLoading) {
     return (
@@ -46,7 +46,7 @@ const Orders = () => {
     );
   }
 
-  const ordersList = orders.map((order) => (
+  ordersList = orders.map((order) => (
     <OrderItem user={order.user} id={order.id} orderedItems={order.orderedItems} />
   ));
 
