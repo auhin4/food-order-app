@@ -1,7 +1,6 @@
 import { call, put, take, takeLatest } from "redux-saga/effects";
 import ordersTypes, { populateOrderById, populateOrders } from "../actions/orders.actions";
 import axios from "axios";
-//import { v4 as uuidv4 } from "uuid";
 
 export function* getOrders() {
   yield take(ordersTypes.GET_ORDERS);

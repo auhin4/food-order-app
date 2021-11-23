@@ -10,20 +10,3 @@ export function* getAllEntries() {
   console.log(data);
   yield put(populateEntries(data));
 }
-
-// export function* addEntrySaga() {
-//   yield takeLatest(entriesTypes.ADD_ENTRY, addEntryToDb);
-// }
-
-// function* addEntryToDb({ payload }) {
-//   yield call(addEntry, payload);
-// }
-
-// async function addEntry({ id, name, description, price }) {
-//   await axios.post("http://localhost:3001/entries", {
-//     id,
-//     name,
-//     description,
-//     price,
-//   });
-// }

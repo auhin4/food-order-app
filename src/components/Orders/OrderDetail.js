@@ -10,7 +10,7 @@ import { getOrderByIdRedux } from "../../actions/orders.actions";
 
 const OrderDetail = () => {
   const params = useParams();
-  const orders = useSelector((state) => state.order);
+  const orders = useSelector((state) => state.orders);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState();
 
@@ -83,7 +83,7 @@ const OrderDetail = () => {
   return (
     <Fragment>
       <section className={classes.orders}>
-        <Card>{ordersList()}</Card>
+        <Card><ul>{ordersList()}</ul></Card>
       </section>
     </Fragment>
   );
