@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useContext, useState } from "react";
+import { useDispatch } from "react-redux";
 import {addOrderRedux} from "../../actions/orders.actions";
 
 import Modal from "../UI/Modal";
@@ -13,8 +13,6 @@ const Cart = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
   const cartCtx = useContext(CartContext);
-
-  const orders = useSelector((state) => state.orders);
 
   const dispatch = useDispatch();
 
@@ -36,11 +34,9 @@ const Cart = (props) => {
   const submitOrderHandler = (userData) => {
     setIsSubmitting(true);
     dispatch(addOrderRedux({
-      name: userData.name,
-      street: userData.street,
-      postalCode: userData.postalCode,
-      city: userData.city,
-      items: cartCtx.items
+      id: userData.id,
+      user: userData.user,
+      orderedItems: userData.orderedItems
     }));
     // await fetch(
     //   "https://food-order-app-db-28154-default-rtdb.firebaseio.com/orders.json",

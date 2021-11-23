@@ -8,11 +8,18 @@ import { getOrdersRedux } from "../../actions/orders.actions";
 import OrdersSummary from "./OrdersSummary";
 
 const Orders = () => {
+  const orders = useSelector((state) => state.orders);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState();
+
+  useEffect(() => {
+    orders.map((order) => (
+      <OrderItem user={order.user} key={order.id} id={order.id} orderedItems={order.orderedItems} />
+    ));
+  }, [orders]);
+
   const dispatch = useDispatch();
-  const orders = useSelector((state) => state.orders);
-  let ordersList;
+
 
   useEffect(() => {
     try {
@@ -24,11 +31,7 @@ const Orders = () => {
     setIsLoading(false);
   }, [dispatch]);
 
-  useEffect(() => {
-    orders.map((order) => (
-      <OrderItem user={order.user} id={order.id} orderedItems={order.orderedItems} />
-    ));
-  }, [orders]);
+
 
   if (isLoading) {
     return (
@@ -46,13 +49,13 @@ const Orders = () => {
     );
   }
 
-  ordersList = orders.map((order) => (
-    <OrderItem user={order.user} id={order.id} orderedItems={order.orderedItems} />
+  const ordersList = orders.map((order) => (
+    <OrderItem user={order.user} id={order.id} key={order.id} orderedItems={order.orderedItems} />
   ));
 
   return (
     <Fragment>
-        <OrdersSummary />
+      <OrdersSummary />
       <section className={classes.orders}>
         <Card>
           <ul>{ordersList}</ul>

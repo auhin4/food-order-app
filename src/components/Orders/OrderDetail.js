@@ -42,7 +42,7 @@ const OrderDetail = () => {
       setHttpError(error.message);
     }
     setIsLoading(false);
-  }, [dispatch]);
+  }, [dispatch, params.id]);
 
   if (isLoading) {
     return (

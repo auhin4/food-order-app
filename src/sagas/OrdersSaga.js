@@ -1,7 +1,7 @@
 import { call, put, take, takeLatest } from "redux-saga/effects";
 import ordersTypes, { populateOrderById, populateOrders } from "../actions/orders.actions";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
+//import { v4 as uuidv4 } from "uuid";
 
 export function* getOrders() {
   yield take(ordersTypes.GET_ORDERS);
@@ -34,19 +34,14 @@ function* addOrderToDb({ payload }) {
   yield call(addOrder, payload);
 }
 
-async function addOrder({ name, street, postalCode, city, items }) {
+async function addOrder({ id, user, orderedItems }) {
   await axios
     .post(
       "http://localhost:3001/orders",
       {
-        id: uuidv4(),
-        user: {
-          name: name,
-          street: street,
-          postalCode: postalCode,
-          city: city,
-        },
-        orderedItems: [...items],
+        id: id,
+        user: user,
+        orderedItems: orderedItems,
       },
       {
         headers: {

@@ -1,11 +1,14 @@
-import { useRef, useState } from "react";
-
+import { useContext, useRef, useState } from "react";
+import CartContext from "../../store/cart-context";
+import { v4 as uuidv4 } from "uuid";
 import classes from "./Checkout.module.css";
 
 const isEmpty = (value) => value.trim() === "";
 const isFiveChars = (value) => value.trim().length === 5;
 
+
 const Checkout = (props) => {
+  const cartCtx = useContext(CartContext);
   const [formInputsValidity, setFormInputsValidity] = useState({
     name: true,
     street: true,
@@ -50,11 +53,16 @@ const Checkout = (props) => {
     //Submit cart data
     props.onConfirm(
       {
-        name: enteredName,
-        street: enteredStreet,
-        postalCode: enteredPostalCode,
-        city: enteredCity
+        id: uuidv4(),
+        user: {
+          name: enteredName,
+          street: enteredStreet,
+          postalCode: enteredPostalCode,
+          city: enteredCity,
+        },
+        orderedItems: [...cartCtx.items],
       }
+      
     );
   };
 
