@@ -61,16 +61,18 @@ const OrderDetail = () => {
   }
 
   const ordersList = () => {
+    let ordersList;
     try {
-      return orders.map((order) => (
+      ordersList = orders.map((order) => (
         <OrderItem
           user={order.user}
           id={order.id}
           orderedItems={order.orderedItems}
         />
       ));
+      
     } catch (error) {
-      return (
+      ordersList = (
         <OrderItem
           user={orders.user}
           id={orders.id}
@@ -78,6 +80,10 @@ const OrderDetail = () => {
         />
       );
     }
+    if(ordersList === null || ordersList.length === 0){
+      ordersList = <div>That Order ID could not be found.</div>;
+    }
+    return ordersList;
   };
 
   return (
